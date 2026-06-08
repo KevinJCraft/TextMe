@@ -15,7 +15,6 @@ export const errorHandler = (err: unknown, req: Request, res: Response, next: Ne
 	if (err instanceof ZodError) {
 		return res.status(400).json({
 			success: false,
-			statusCode: 400,
 			message: "Validation error",
 			errors: err.issues.map((e) => ({
 				field: e.path.join("."),
@@ -28,7 +27,6 @@ export const errorHandler = (err: unknown, req: Request, res: Response, next: Ne
 	if (err instanceof AppError) {
 		return res.status(err.statusCode).json({
 			success: false,
-			statusCode: err.statusCode,
 			message: err.message,
 		});
 	}
@@ -38,7 +36,6 @@ export const errorHandler = (err: unknown, req: Request, res: Response, next: Ne
 	console.error(`[Error] ${message}`);
 	return res.status(500).json({
 		success: false,
-		statusCode: 500,
 		message,
 	});
 };
