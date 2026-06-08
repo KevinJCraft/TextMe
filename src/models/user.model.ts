@@ -1,4 +1,5 @@
 import { prisma } from "../lib/prisma";
+import { Prisma } from "../generated/prisma/client";
 
 export const UserModel = {
 	findAll: async () => {
@@ -9,11 +10,11 @@ export const UserModel = {
 		return prisma.user.findUnique({ where: { id } });
 	},
 
-	create: async (data: { name: string; email: string }) => {
+	create: async (data: Prisma.UserCreateInput) => {
 		return prisma.user.create({ data });
 	},
 
-	update: async (id: number, data: { name?: string; email?: string }) => {
+	update: async (id: number, data: Prisma.UserUpdateInput) => {
 		return prisma.user.update({ where: { id }, data });
 	},
 

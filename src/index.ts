@@ -1,13 +1,11 @@
 import "dotenv/config";
-import express, { type Application, type Request, type Response } from "express";
-import { PrismaPg } from "@prisma/adapter-pg";
+import express, { type Application } from "express";
 import userRoutes from "./routes/user.routes";
 import { notFound } from "./middleware/notFound";
 import { errorHandler } from "./middleware/errorHandler";
+import { config } from "./config";
 
 const app: Application = express();
-const adapter = new PrismaPg({ connectionString: process.env["DATABASE_URL"] });
-const port = 3001;
 
 app.use(express.json());
 
@@ -18,4 +16,4 @@ app.use("/users", userRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(port, () => console.log("Server running on port " + port));
+app.listen(config.port, () => console.log(`Server running on port ${config.port}`));

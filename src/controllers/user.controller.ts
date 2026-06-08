@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { UserModel } from "../models/user.model";
 import { asyncHandler } from "../lib/asyncHandler";
 import { AppError } from "../middleware/errorHandler";
+import { CreateUserSchema, UpdateUserSchema } from "../dtos/user.dtos";
 
 export const UserController = {
 	getAll: asyncHandler(async (_req: Request, res: Response) => {
@@ -16,12 +17,14 @@ export const UserController = {
 	}),
 
 	create: asyncHandler(async (req: Request, res: Response) => {
-		const user = await UserModel.create(req.body);
+		const body = CreateUserSchema.parse(req.body);
+		const user = await UserModel.create(body);
 		res.status(201).json(user);
 	}),
 
 	update: asyncHandler(async (req: Request, res: Response) => {
-		const user = await UserModel.update(Number(req.params.id), req.body);
+		const body = UpdateUserSchema.parse(req.body);
+		const user = await UserModel.update(Number(req.params.id), body);
 		res.json(user);
 	}),
 
