@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express, { type Application } from "express";
 import userRoutes from "./routes/user.routes";
+import authRoutes from "./routes/auth.routes";
 import { notFound } from "./middleware/notFound";
 import { errorHandler } from "./middleware/errorHandler";
 import { config } from "./config";
@@ -11,6 +12,7 @@ app.use(express.json());
 
 //routes
 app.use("/users", userRoutes);
+app.use("/auth", authRoutes);
 
 //error handling - must be last
 app.use(notFound);

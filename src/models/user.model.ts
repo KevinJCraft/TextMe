@@ -11,10 +11,6 @@ export const UserModel = {
 		return prisma.user.findUnique({ where: { id } });
 	},
 
-	create: async (data: Prisma.UserCreateInput) => {
-		return prisma.user.create({ data });
-	},
-
 	update: async (id: number, data: Prisma.UserUpdateInput) => {
 		const user = await prisma.user.findUnique({ where: { id } });
 		if (!user) throw new AppError("User not found", 404);

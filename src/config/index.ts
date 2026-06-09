@@ -12,5 +12,8 @@ export const config = {
 	database: {
 		url: requireEnv("DATABASE_URL"),
 	},
+	jwt: {
+		secret: requireEnv("JWT_SECRET"),
+	},
 	node_env: process.env.NODE_ENV || "development",
 };
