@@ -17,4 +17,14 @@ model User {
   email String  @unique
   name  String?
   password String
+  stories Story[]
+}
+
+model Story {
+  id Int @id @default(autoincrement())
+  title String
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
