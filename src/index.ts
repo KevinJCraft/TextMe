@@ -12,6 +12,10 @@ const app: Application = express();
 
 app.use(express.json());
 
+app.get("/health", (_req, res) => {
+	res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
 //routes
 app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
