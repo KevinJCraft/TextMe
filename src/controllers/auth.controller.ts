@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../lib/asyncHandler";
 import { LoginSchema, RegisterSchema } from "../dtos/auth.dtos";
-import { AuthModel } from "../models/auth.models";
+import { AuthModel } from "../models/auth.model";
 import { AppError } from "../middleware/errorHandler";
 import bcrypt from "bcrypt";
 import { config } from "../config";

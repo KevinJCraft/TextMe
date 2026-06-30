@@ -13,18 +13,62 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
   password String
-  stories Story[]
+  stories  Story[]
 }
 
 model Story {
-  id Int @id @default(autoincrement())
-  title String
-  userId Int
-  user User @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int         @id @default(autoincrement())
+  title      String
+  content    String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  userId     Int
+  user       User        @relation(fields: [userId], references: [id])
+  characters Character[]
+  threads    Thread[]
+}
+
+model Character {
+  id       Int               @id @default(autoincrement())
+  name     String
+  color    String?
+  storyId  Int
+  story    Story             @relation(fields: [storyId], references: [id])
+  threads  ThreadCharacter[]
+  messages Message[]
+}
+
+model Thread {
+  id         Int               @id @default(autoincrement())
+  title      String
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+  storyId    Int
+  story      Story             @relation(fields: [storyId], references: [id])
+  characters ThreadCharacter[]
+  messages   Message[]
+}
+
+model ThreadCharacter {
+  threadId    Int
+  characterId Int
+  thread      Thread    @relation(fields: [threadId], references: [id])
+  character   Character @relation(fields: [characterId], references: [id])
+
+  @@id([threadId, characterId])
+}
+
+model Message {
+  id          Int       @id @default(autoincrement())
+  content     String
+  sentAt      DateTime
+  createdAt   DateTime  @default(now())
+  threadId    Int
+  characterId Int
+  thread      Thread    @relation(fields: [threadId], references: [id])
+  character   Character @relation(fields: [characterId], references: [id])
 }
