@@ -1,25 +1,12 @@
-import { prisma } from "../lib/prisma";
 import { Prisma } from "../generated/prisma/client";
-import { AppError } from "../middleware/errorHandler";
+import { prisma } from "../lib/prisma";
 
 export const UserModel = {
-	findAll: async () => {
-		return prisma.user.findMany();
-	},
-
-	findById: async (id: number) => {
-		return prisma.user.findUnique({ where: { id } });
-	},
-
 	update: async (id: number, data: Prisma.UserUpdateInput) => {
-		const user = await prisma.user.findUnique({ where: { id } });
-		if (!user) throw new AppError("User not found", 404);
-		return prisma.user.update({ where: { id }, data });
+		return await prisma.user.update({ where: { id }, data });
 	},
 
 	delete: async (id: number) => {
-		const user = await prisma.user.findUnique({ where: { id } });
-		if (!user) throw new AppError("User not found", 404);
-		return prisma.user.delete({ where: { id } });
+		return await prisma.user.delete({ where: { id } });
 	},
 };

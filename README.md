@@ -24,6 +24,10 @@ Node/Express/TypeScript backend template with Prisma, JWT auth, and standard too
 - JWT_SECRET - secret key for signing JWTs
 - PORT - optional, defaults to 3001
 - NODE_ENV - optional, defaults to development
+- AWS_ACCESS_KEY_ID=
+- AWS_SECRET_ACCESS_KEY=
+- AWS_REGION=
+- AWS_BUCKET_NAME=
 
 ## Project Structure
 

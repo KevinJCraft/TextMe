@@ -7,6 +7,9 @@ import characterRoutes from "./routes/character.routes";
 import { notFound } from "./middleware/notFound";
 import { errorHandler } from "./middleware/errorHandler";
 import { config } from "./config";
+import uploadRoutes from "./routes/upload.routes";
+import messageRoutes from "./routes/message.routes";
+import threadRoutes from "./routes/thread.routes";
 
 const app: Application = express();
 
@@ -19,8 +22,11 @@ app.get("/health", (_req, res) => {
 //routes
 app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
-app.use("/story", storyRoutes);
+app.use("/stories", storyRoutes);
 app.use("/stories/:storyId/characters", characterRoutes);
+app.use("/upload", uploadRoutes);
+app.use("/stories/:storyId/threads/:threadId/messages", messageRoutes);
+app.use("/stories/:storyId/threads", threadRoutes);
 
 //error handling - must be last
 app.use(notFound);

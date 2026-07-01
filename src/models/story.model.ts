@@ -8,7 +8,27 @@ export const StoryModel = {
 	},
 
 	findById: async (id: number) => {
-		return prisma.story.findUnique({ where: { id } });
+		return await prisma.story.findUnique({
+			where: { id },
+			include: {
+				characters: true,
+				threads: {
+					include: {
+						characters: {
+							include: {
+								character: true,
+							},
+						},
+						messages: {
+							orderBy: { sentAt: "asc" },
+							include: {
+								character: true,
+							},
+						},
+					},
+				},
+			},
+		});
 	},
 
 	findByUserId: async (userId: number) => {

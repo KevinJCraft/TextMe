@@ -62,9 +62,16 @@ model ThreadCharacter {
   @@id([threadId, characterId])
 }
 
+enum MessageType {
+  TEXT
+  IMAGE
+}
+
 model Message {
   id          Int       @id @default(autoincrement())
-  content     String
+  content     String?
+  imgUrl      String?
+  type        MessageType @default(TEXT)
   sentAt      DateTime
   createdAt   DateTime  @default(now())
   threadId    Int
